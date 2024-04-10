@@ -89,7 +89,7 @@ status: completed
 result: A white cat with yellow eyes walking near a sofa.
 Current input: Translate the description in to Chinese
 AI: [{{"task": "translator", "id": 0, "dep": [-1], "args": {{"text": "A white cat with yellow eyes walking near a sofa.", "source_language": "English", "target_language": "Chinese"}}}}]
----END-OF-EXAMPLE-5---
+---END-OF-EXAMPLE-6---
 
 
 {chat_history}"""
