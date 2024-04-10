@@ -1,0 +1,173 @@
+from typing import List, Optional, Tuple, TypedDict
+from moss.moss import Moss
+from moss.task_executor import TaskExecutor
+from moss.task_planner import Plan
+from moss.tools.chitchat import ChitChat
+from moss.tools.image_generator import ImageGenerator
+from moss.tools.image_qa import ImageQA
+from moss.tools.speech_transcriber import SpeechTranscriber
+from moss.tools.summarizer import Summarizer
+from moss.tools.text_reader import TextReader
+from moss.tools.translator import Translator
+from langchain_openai import ChatOpenAI
+
+import os
+import shutil
+import gradio as gr  # type: ignore
+
+
+def load_agent() -> Moss:
+    return Moss(llm=ChatOpenAI(temperature=0, model="gpt-4"), tools=tools)
+
+
+tools = [
+    ImageGenerator(),
+    ImageQA(),
+    TextReader(),
+    SpeechTranscriber(),
+    Translator(),
+    Summarizer(),
+    ChitChat()
+]
+
+agent = load_agent()
+
+
+class UserMessageType(TypedDict):
+    text: str
+    files: List[str]
+
+
+HistoryType = List[List[Tuple[str] | str | None]]
+
+
+def find_unreplied_user_message(history: HistoryType) -> UserMessageType:
+    latest_user_message: UserMessageType = {"files": [], "text": ""}
+    for msg in reversed(history):
+        if msg[0] is None:
+            break
+        if isinstance(msg[0], tuple):
+            latest_user_message["files"].insert(0, msg[0][0])
+        elif isinstance(msg[0], str):
+            latest_user_message["text"] = msg[0]
+    return latest_user_message
+
+
+def no_reply_before(history: HistoryType) -> bool:
+    for msg in history:
+        if msg[0] is None:
+            return False
+    return True
+
+
+def is_file(path: str) -> bool:
+    return os.path.exists(path) and os.path.isfile(path)
+
+
+def format_plan_markdown(plan: Plan) -> str:
+    result = "## Task Planner:\n"
+    result += "The request you submitted has been processed by the task planner and has been scheduled into the following tasks:\n\n"
+    for index, step in enumerate(plan.steps):
+        result += f"{index + 1}. **{step.task}** ( {step.args} )\n"
+    result += "\n Now execution starts. Please wait...."
+    return result
+
+
+def format_execution_markdown(execution: TaskExecutor) -> List[str]:
+    s = "## Task Executor:\n"
+    s += "The task executor has executed the tasks. Here's the results:\n\n"
+    result: List[str] = [s]
+    for index, task in enumerate(execution.tasks):
+        s = f"{index + 1}. **{task.task}** - **{task.status}**  "
+        if task.status != "completed":
+            s += f"message: {task.message}"
+        else:
+            if not is_file(task.result):
+                s += f"result: {task.result}"
+        result.append(s)
+        if is_file(task.result):
+            result.append(task.result)
+    return result
+
+
+def format_response_markdown(response: str) -> str:
+    result = "## Response Generator:\n"
+    result += "The response generator summarized the execution results, "
+    result += f"Here is the final answer:\n\n {response}"
+    return result
+
+
+def print_like_dislike(x: gr.LikeData):
+    print(x.index, x.value, x.liked)
+
+
+def add_message(history: HistoryType, message: UserMessageType):
+    for x in message["files"]:
+        history.append([(x,), None])
+    if message["text"] is not None:
+        history.append([message["text"], None])
+    return history, gr.MultimodalTextbox(value=None, interactive=False)
+
+
+previous_execution: Optional[TaskExecutor] = None
+
+
+def bot(history: HistoryType):
+    global previous_execution
+    global agent
+    if no_reply_before(history):
+        agent = load_agent()
+        previous_execution = None
+    unreplied_user_message = find_unreplied_user_message(history)
+    files: List[str] = []
+    for file in unreplied_user_message["files"]:
+        filename = os.path.basename(file)
+        shutil.copyfile(file, f"./{filename}")
+        files.append(filename)
+
+    formatted_input = f"Given these files: {files}, " if len(files) > 0 else ""
+    formatted_input += f"{unreplied_user_message['text']}"
+    for res in agent.stream(
+        formatted_input, "" if previous_execution is None else str(previous_execution)
+    ):
+        if isinstance(res, Plan):
+            history.append([None, format_plan_markdown(res)])
+        elif isinstance(res, TaskExecutor):
+            reply_list = format_execution_markdown(res)
+            for reply in reply_list:
+                history.append([None, (reply,) if is_file(reply) else reply])
+            previous_execution = res
+        elif isinstance(res, str):
+            history.append([None, format_response_markdown(res)])
+        yield history
+
+
+if __name__ == "__main__":
+
+    with gr.Blocks() as demo:
+        gr.Markdown("<h1><center>Moss Gradio Demo</center></h1>")
+        chatbot = gr.Chatbot(
+            [],
+            elem_id="chatbot",
+            bubble_full_width=False,
+            avatar_images=("assets/user_avatar.jpg", "assets/bot_avatar.png")
+        )
+
+        chat_input = gr.MultimodalTextbox(
+            interactive=True,
+            file_types=["image", "audio"],
+            placeholder="Enter message or upload file...",
+            show_label=False,
+        )
+
+        chat_msg = chat_input.submit(
+            add_message, [chatbot, chat_input], [chatbot, chat_input]
+        )
+        bot_msg = chat_msg.then(bot, chatbot, chatbot, api_name="bot_response")
+        bot_msg.then(lambda: gr.MultimodalTextbox(interactive=True), None, [chat_input])
+        clear_btn = gr.ClearButton([chat_input, chatbot])
+
+        chatbot.like(print_like_dislike, None, None)
+
+    demo.queue()
+    demo.launch()
