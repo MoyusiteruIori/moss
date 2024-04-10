@@ -41,6 +41,18 @@ class UserMessageType(TypedDict):
 HistoryType = List[List[Tuple[str] | str | None]]
 
 
+def clear_workspace():
+    global agent
+    global previous_execution
+    agent = load_agent()
+    previous_execution = None
+    cwd = os.getcwd()
+    for filename in os.listdir(cwd):
+        if filename.endswith((".png", ".jpg", ".mp3")):
+            path = os.path.join(cwd, filename)
+            os.remove(path)
+
+
 def find_unreplied_user_message(history: HistoryType) -> UserMessageType:
     latest_user_message: UserMessageType = {"files": [], "text": ""}
     for msg in reversed(history):
@@ -144,8 +156,15 @@ def bot(history: HistoryType):
 
 if __name__ == "__main__":
 
-    with gr.Blocks() as demo:
-        gr.Markdown("<h1><center>Moss Gradio Demo</center></h1>")
+    theme = gr.themes.Glass(
+        primary_hue=gr.themes.colors.sky,
+        secondary_hue=gr.themes.colors.pink,
+        neutral_hue=gr.themes.colors.zinc,
+        radius_size=gr.themes.sizes.radius_lg,
+    )
+
+    with gr.Blocks(theme=theme) as demo:
+        gr.Markdown("<h1><center> 🚀 Moss Gradio Demo</center></h1>")
         chatbot = gr.Chatbot(
             [],
             elem_id="chatbot",
@@ -165,9 +184,28 @@ if __name__ == "__main__":
         )
         bot_msg = chat_msg.then(bot, chatbot, chatbot, api_name="bot_response")
         bot_msg.then(lambda: gr.MultimodalTextbox(interactive=True), None, [chat_input])
-        clear_btn = gr.ClearButton([chat_input, chatbot])
+        clear_btn = gr.ClearButton([chat_input, chatbot]).click(fn=clear_workspace)
 
         chatbot.like(print_like_dislike, None, None)
+
+        examples = gr.Examples([
+            {
+                "text": "Describe these images in detail. Tell me every thing that you see.",
+                "files": ["examples/black_cat.png", "examples/white_cat.png"]
+            },
+            {
+                "text": "Generate an image of a knight riding a dragon, flying in the sky. Then write a poem about the image, and dub it. Finally translate the poem into Chinese.",
+                "files": []
+            },
+            {
+                "text": "Generate two images of cats, one white and the other black, and provide a comparative description for these two images.",
+                "files": []
+            },
+            {
+                "text": "Listen to the speech in this audio file, summarize the content, and generate an image based on it.",
+                "files": ["examples/poem.mp3"]
+            }
+        ], chat_input)
 
     demo.queue()
     demo.launch()
