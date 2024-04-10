@@ -180,6 +180,7 @@ output/audios/*
 *.flac
 *.wav
 *.mp4
+!assets/*
 
 # PDM
 .pdm-python
