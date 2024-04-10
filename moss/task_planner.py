@@ -79,7 +79,7 @@ status: completed
 result: 03e9d8.jpg
 Current input: Describe the image you just generated in detail, then read it to me.
 AI: [{{"task": "image_qa", "id": 0, "dep": [-1], "args": {{"images": ["03e9d8.jpg"], "question": "describe the image in detail."}}}}, {{"task": "text_reader", "id": 1, "dep": [0], "args": {{"text": "<resource-0>"}}}}]
----END-OF-EXAMPLE-4---
+---END-OF-EXAMPLE-5---
 
 ------EXAMPLE-6-------
 Human: Given an image ['cat.jpg'], please describe it in one sentence.
