@@ -32,24 +32,20 @@ if __name__ == "__main__":
         if message == "exit":
             break
 
-        plan, execution, response = agent.run(
-            message, "" if execution is None else str(execution)
-        )
-
         print("[ Assistant ]:")
-        for res in agent.stream(
+        for res in agent.stream_with_executor_thread(
             message, "" if execution is None else str(execution)
         ):
             if isinstance(res, Plan):
-                for c in f"- Planning:\n{str(plan)}\n\n":
+                for c in f"- Planning:\n{str(res)}\n\n":
                     print(c, end='', flush=True)
                     time.sleep(0.05)
             elif isinstance(res, TaskExecutor):
                 execution = res
-                for c in f"- Execution:\n{str(execution)}\n\n":
+                for c in f"- Execution:\n{str(res)}\n\n":
                     print(c, end='', flush=True)
                     time.sleep(0.05)
             elif isinstance(res, str):
-                for c in f"- Final Response:\n{response}\n":
+                for c in f"- Final Response:\n{res}\n":
                     print(c, end='', flush=True)
                     time.sleep(0.05)
