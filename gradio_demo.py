@@ -85,6 +85,8 @@ def format_plan_markdown(plan: Plan) -> str:
     for index, step in enumerate(plan.steps):
         result += f"{index + 1}. **{step.task}** ( {step.args} )\n"
     result += "\n Now execution starts. Please wait...."
+    result = result.replace("<", "\<")
+    result = result.replace(">", "\>")
     return result
 
 
@@ -182,10 +184,11 @@ def bot(history: HistoryType):
 if __name__ == "__main__":
 
     theme = gr.themes.Glass(
-        primary_hue=gr.themes.colors.sky,
-        secondary_hue=gr.themes.colors.pink,
+        primary_hue=gr.themes.colors.stone,
+        secondary_hue=gr.themes.colors.gray,
         neutral_hue=gr.themes.colors.zinc,
         radius_size=gr.themes.sizes.radius_lg,
+        text_size=gr.themes.sizes.text_md
     )
 
     with gr.Blocks(theme=theme) as demo:
