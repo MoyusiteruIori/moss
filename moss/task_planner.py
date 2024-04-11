@@ -217,7 +217,7 @@ class PlanningOutputParser(BaseModel):
             The plan.
         """
         steps = []
-        for v in json.loads(re.findall(r"\[.*\]", text)[0]):
+        for v in json.loads(text):
             choose_tool = None
             for tool in hf_tools:
                 if tool.name == v["task"]:
@@ -241,6 +241,7 @@ class TaskPlanner(BasePlanner):
             f"{tool.name}: {tool.description}" for tool in inputs["hf_tools"]
         ]
         llm_response = self.llm_chain.run(**inputs, stop=self.stop, callbacks=callbacks)
+        print("plan:", llm_response)
         return self.output_parser.parse(llm_response, inputs["hf_tools"])
 
     async def aplan(
