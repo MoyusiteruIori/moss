@@ -1,5 +1,5 @@
 import json
-import re
+from pprint import pformat
 from abc import abstractmethod
 from typing import Any, Dict, List, Optional, Union
 
@@ -183,7 +183,7 @@ class Plan:
         self.steps = steps
 
     def __str__(self) -> str:
-        return str([str(step) for step in self.steps])
+        return pformat([str(step) for step in self.steps])
 
     def __repr__(self) -> str:
         return str(self)
@@ -241,7 +241,6 @@ class TaskPlanner(BasePlanner):
             f"{tool.name}: {tool.description}" for tool in inputs["hf_tools"]
         ]
         llm_response = self.llm_chain.run(**inputs, stop=self.stop, callbacks=callbacks)
-        print("plan:", llm_response)
         return self.output_parser.parse(llm_response, inputs["hf_tools"])
 
     async def aplan(
