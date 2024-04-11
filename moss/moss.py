@@ -1,4 +1,6 @@
 from typing import Any, Generator, Sequence, Tuple
+from queue import Queue
+from threading import Thread
 
 from langchain.base_language import BaseLanguageModel
 from langchain.tools.base import BaseTool
@@ -64,3 +66,40 @@ class Moss:
             {"input": input, "task_execution": self.task_executor}
         )
         yield response
+
+    def stream_with_executor_thread(
+        self, input: str, previous_result: str = ""
+    ) -> Generator[Plan | TaskExecutor | str, Any, None]:
+
+        q: Queue[Plan | TaskExecutor | str] = Queue()
+
+        def executor_func():
+            if previous_result == "":
+                real_input = f"\n- Current Input: {input}"
+            else:
+                real_input = f"\n- Previous tasks result: {previous_result}\n- Current Input: {input}"
+            plan = self.chat_planner.plan(
+                inputs={
+                    "input": real_input,
+                    "hf_tools": self.tools,
+                }
+            )
+            q.put(plan)
+
+            self.task_executor = TaskExecutor(plan)
+            self.task_executor.run()
+            q.put(self.task_executor)
+
+            response = self.response_generator.generate(
+                {"input": input, "task_execution": self.task_executor}
+            )
+            q.put(response)
+
+        executor_thread = Thread(target=executor_func)
+        executor_thread.start()
+
+        for res_type in ["plan", "execution", "response"]:
+            res = q.get()
+            yield res
+
+        executor_thread.join()

@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple, TypedDict
+from typing import Any, Callable, Generator, List, Optional, Tuple, TypedDict, TypeVar
 from moss.moss import Moss
 from moss.task_executor import TaskExecutor
 from moss.task_planner import Plan
@@ -12,7 +12,10 @@ from moss.tools.translator import Translator
 from langchain_openai import ChatOpenAI
 
 import os
+import random
 import shutil
+import time
+
 import gradio as gr  # type: ignore
 
 
@@ -27,7 +30,7 @@ tools = [
     SpeechTranscriber(),
     Translator(),
     Summarizer(),
-    ChitChat()
+    ChitChat(),
 ]
 
 agent = load_agent()
@@ -109,6 +112,16 @@ def format_response_markdown(response: str) -> str:
     return result
 
 
+T = TypeVar("T")
+
+
+def resp_generator(text: T, formatter: Callable[[T], str]) -> Generator[str, Any, None]:
+    formatted_text = formatter(text)
+    for c in formatted_text:
+        yield c
+        time.sleep(random.uniform(0, 0.03))
+
+
 def print_like_dislike(x: gr.LikeData):
     print(x.index, x.value, x.liked)
 
@@ -139,19 +152,31 @@ def bot(history: HistoryType):
 
     formatted_input = f"Given these files: {files}, " if len(files) > 0 else ""
     formatted_input += f"{unreplied_user_message['text']}"
-    for res in agent.stream(
+    for res in agent.stream_with_executor_thread(
         formatted_input, "" if previous_execution is None else str(previous_execution)
     ):
         if isinstance(res, Plan):
-            history.append([None, format_plan_markdown(res)])
+            history.append([None, ""])
+            for c in resp_generator(res, format_plan_markdown):
+                history[-1][1] += c  # type: ignore
+                yield history
         elif isinstance(res, TaskExecutor):
+            previous_execution = res
             reply_list = format_execution_markdown(res)
             for reply in reply_list:
-                history.append([None, (reply,) if is_file(reply) else reply])
-            previous_execution = res
+                if is_file(reply):
+                    history.append([None, (reply,)])
+                    yield history
+                else:
+                    history.append([None, ""])
+                    for c in resp_generator(reply, lambda s: s):
+                        history[-1][1] += c  # type: ignore
+                        yield history
         elif isinstance(res, str):
-            history.append([None, format_response_markdown(res)])
-        yield history
+            history.append([None, ""])
+            for c in resp_generator(res, format_response_markdown):
+                history[-1][1] += c  # type: ignore
+                yield history
 
 
 if __name__ == "__main__":
@@ -169,7 +194,7 @@ if __name__ == "__main__":
             [],
             elem_id="chatbot",
             bubble_full_width=False,
-            avatar_images=("assets/user_avatar.jpg", "assets/bot_avatar.png")
+            avatar_images=("assets/user_avatar.jpg", "assets/bot_avatar.png"),
         )
 
         chat_input = gr.MultimodalTextbox(
@@ -188,24 +213,27 @@ if __name__ == "__main__":
 
         chatbot.like(print_like_dislike, None, None)
 
-        examples = gr.Examples([
-            {
-                "text": "Describe these images in detail. Tell me every thing that you see.",
-                "files": ["examples/black_cat.png", "examples/white_cat.png"]
-            },
-            {
-                "text": "Generate an image of a knight riding a dragon, flying in the sky. Then write a poem about the image, and dub it. Finally translate the poem into Chinese.",
-                "files": []
-            },
-            {
-                "text": "Generate two images of cats, one white and the other black, and provide a comparative description for these two images.",
-                "files": []
-            },
-            {
-                "text": "Listen to the speech in this audio file, summarize the content, and generate an image based on it.",
-                "files": ["examples/poem.mp3"]
-            }
-        ], chat_input)
+        examples = gr.Examples(
+            [
+                {
+                    "text": "Describe these images in detail. Tell me every thing that you see.",
+                    "files": ["examples/black_cat.png", "examples/white_cat.png"],
+                },
+                {
+                    "text": "Generate an image of a knight riding a dragon, flying in the sky. Then write a poem about the image, and dub it. Finally translate the poem into Chinese.",
+                    "files": [],
+                },
+                {
+                    "text": "Generate two images of cats, one white and the other black, and provide a comparative description for these two images.",
+                    "files": [],
+                },
+                {
+                    "text": "Listen to the speech in this audio file, summarize the content, and generate an image based on it.",
+                    "files": ["examples/poem.mp3"],
+                },
+            ],
+            chat_input,
+        )
 
     demo.queue()
     demo.launch()
