@@ -47,10 +47,10 @@ class NLPTasksExecutor:
         return llm_response
 
 
-def load_nlp_executor(llm: BaseLanguageModel) -> NLPTasksExecutor:
+def load_nlp_executor(llm: BaseLanguageModel, verbose: bool = True) -> NLPTasksExecutor:
     """Load the ResponseGenerator."""
 
-    llm_chain = NLPTasksExecutorChain.from_llm(llm)
+    llm_chain = NLPTasksExecutorChain.from_llm(llm, verbose=verbose)
     return NLPTasksExecutor(
         llm_chain=llm_chain,
     )

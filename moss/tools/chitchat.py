@@ -16,12 +16,14 @@ class ChitChat(BaseTool):
 
     def _run(self, text: str) -> str:
         executor = load_nlp_executor(
-            llm=ChatOpenAI(model="gpt-4", temperature=0)
+            llm=ChatOpenAI(model="gpt-4", temperature=0),
+            verbose=False
         )
         return executor.run(input=text)
 
     async def _arun(self, text: str) -> str:
         executor = load_nlp_executor(
-            llm=ChatOpenAI(model="gpt-4", temperature=0)
+            llm=ChatOpenAI(model="gpt-4", temperature=0),
+            verbose=False
         )
         return await executor.arun(input=text)

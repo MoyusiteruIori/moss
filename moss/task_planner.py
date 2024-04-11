@@ -257,8 +257,8 @@ class TaskPlanner(BasePlanner):
         return self.output_parser.parse(llm_response, inputs["hf_tools"])
 
 
-def load_chat_planner(llm: BaseLanguageModel) -> TaskPlanner:
+def load_chat_planner(llm: BaseLanguageModel, verbose: bool = True) -> TaskPlanner:
     """Load the chat planner."""
 
-    llm_chain = TaskPlaningChain.from_llm(llm)
+    llm_chain = TaskPlaningChain.from_llm(llm, verbose=verbose)
     return TaskPlanner(llm_chain=llm_chain, output_parser=PlanningOutputParser())

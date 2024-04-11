@@ -57,10 +57,10 @@ Please summarize the results according to the user input and generate a response
         return llm_response
 
 
-def load_response_generator(llm: BaseLanguageModel) -> ResponseGenerator:
+def load_response_generator(llm: BaseLanguageModel, verbose: bool = True) -> ResponseGenerator:
     """Load the ResponseGenerator."""
 
-    llm_chain = ResponseGenerationChain.from_llm(llm)
+    llm_chain = ResponseGenerationChain.from_llm(llm, verbose=verbose)
     return ResponseGenerator(
         llm_chain=llm_chain,
     )

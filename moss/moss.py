@@ -14,11 +14,11 @@ from .task_planner import load_chat_planner, Plan
 
 class Moss:
 
-    def __init__(self, llm: BaseLanguageModel, tools: Sequence[BaseTool]):
+    def __init__(self, llm: BaseLanguageModel, tools: Sequence[BaseTool], verbose: bool = True):
         self.llm = llm
         self.tools = tools
-        self.chat_planner = load_chat_planner(llm)
-        self.response_generator = load_response_generator(llm)
+        self.chat_planner = load_chat_planner(llm, verbose=verbose)
+        self.response_generator = load_response_generator(llm, verbose=verbose)
         self.task_executor: TaskExecutor
 
     def run(
