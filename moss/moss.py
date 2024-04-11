@@ -11,6 +11,11 @@ from .repsonse_generator import (
 from .task_executor import TaskExecutor, TaskExecutor
 from .task_planner import load_chat_planner, Plan
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 
 class Moss:
 
@@ -34,7 +39,7 @@ class Moss:
                 "hf_tools": self.tools,
             }
         )
-        print(f"Task planning result: {str(plan)}\n")
+        logger.debug(f"Task planning result: {str(plan)}\n")
         self.task_executor = TaskExecutor(plan)
         self.task_executor.run()
         response = self.response_generator.generate(
@@ -55,7 +60,7 @@ class Moss:
                 "hf_tools": self.tools,
             }
         )
-        print(f"Task planning result: {str(plan)}\n")
+        logger.debug(f"Task planning result: {str(plan)}\n")
         yield plan
 
         self.task_executor = TaskExecutor(plan)

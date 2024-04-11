@@ -1,4 +1,5 @@
 from moss.moss import Moss
+from moss.log import setup_logging
 from moss.task_executor import TaskExecutor
 from moss.task_planner import Plan
 from moss.tools.chitchat import ChitChat
@@ -10,6 +11,9 @@ from moss.tools.text_reader import TextReader
 from moss.tools.translator import Translator
 from langchain_openai import ChatOpenAI
 import time
+
+
+setup_logging()
 
 
 if __name__ == "__main__":

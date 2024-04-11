@@ -1,5 +1,6 @@
 from typing import Any, Callable, Generator, List, Optional, Tuple, TypedDict, TypeVar
 from moss.moss import Moss
+from moss.log import setup_logging
 from moss.task_executor import TaskExecutor
 from moss.task_planner import Plan
 from moss.tools.chitchat import ChitChat
@@ -17,6 +18,8 @@ import shutil
 import time
 
 import gradio as gr  # type: ignore
+
+setup_logging()
 
 
 def load_agent() -> Moss:

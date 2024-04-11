@@ -7,6 +7,11 @@ from langchain.tools.base import BaseTool
 
 from .task_planner import Plan
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 
 class Task:
     """Task to be executed."""
@@ -128,7 +133,7 @@ class TaskExecutor:
 
     def run(self) -> str:
         for task in self.tasks:
-            print(f"running {task}")  # noqa: T201
+            logger.debug(f"running {task}")  # noqa: T201
             if task.pending() and self.check_dependency(task):
                 self.update_args(task)
                 task.run()
