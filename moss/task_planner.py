@@ -57,7 +57,7 @@ AI: [{{"task": "image_qa", "id": 0, "dep": [-1], "args": {{"images": ["p1.jpg"],
 
 ------EXAMPLE-3-------
 Human: Listen to the description in a.mp3, and generate an image based on it. Finally write a poem about the image you generated.
-AI: [{{"task": "speech_transcriber", "id": 0, "dep": [-1], "args": {{"audio": "a.mp3"}}}}, {{"task": "image_generator", "id": 1, "dep": [0], "args": {{"prompt": "<resource-0>"}}}}, {{"task": "image_qa", "id": 1, "dep": [1], "args": {{"images": ["<resource-1>"], "question": "Write a poem about this image"}}}}]
+AI: [{{"task": "speech_transcriber", "id": 0, "dep": [-1], "args": {{"audio": "a.mp3"}}}}, {{"task": "image_generator", "id": 1, "dep": [0], "args": {{"prompt": "<resource-0>"}}}}, {{"task": "image_qa", "id": 2, "dep": [1], "args": {{"images": ["<resource-1>"], "question": "Write a poem about this image"}}}}]
 ---END-OF-EXAMPLE-3---
 
 ------EXAMPLE-4-------
@@ -66,7 +66,7 @@ AI: [{{"task": "chitchat", "id": 0, "dep": [-1], "args": {{"text": "Hi, what's y
 ---END-OF-EXAMPLE-4---
 
 The user input may contain some pronouns like "the image you just generated" or "the audio I just told you". You should try to resolve these pronouns and replace them with the corresponding filename or text based on the context.
-Every time you give a reply, the task list MUST start for id 0. This is import. It means you should try your best to resolve and replace pronouns based on the context, instead of introducing dependencies for a task.
+Every time you give a reply, the task list MUST start for id 0. This is important. It means you should try your best to resolve and replace pronouns based on the context, instead of introducing dependencies for a task.
 If you find it impossible to resolve pronouns in user input, also reply an empty JSON [].
 
 Here are also examples for you:
@@ -87,7 +87,7 @@ AI: [{{"task": "image_qa", "id": 0, "dep": [-1], "args": {{"images": ["cat.jpg"]
 Human: Previous tasks:
 status: completed
 result: A white cat with yellow eyes walking near a sofa.
-Current input: Translate the description in to Chinese
+Current input: Translate the description into Chinese
 AI: [{{"task": "translator", "id": 0, "dep": [-1], "args": {{"text": "A white cat with yellow eyes walking near a sofa.", "source_language": "English", "target_language": "Chinese"}}}}]
 ---END-OF-EXAMPLE-6---
 
