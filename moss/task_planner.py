@@ -51,8 +51,8 @@ AI: [{{"task": "image_qa", "id": 0, "dep": [-1], "args": {{ "images": ["e1.jpg",
 ---END-OF-EXAMPLE-1---
 
 ------EXAMPLE-2-------
-Human: Give you a picture p1.jpg, describe it in detail and write a poem about it.
-AI: [{{"task": "image_qa", "id": 0, "dep": [-1], "args": {{"images": ["p1.jpg"], "question": "describe the image in detail and write a poem about it."}}}}]
+Human: p1.png is a grassland in the morning. p2.png is the grassland in the afternoon. How many horses has come (or left) during this period?
+AI: [{{"task": "image_qa", "id": 0, "dep": [-1], "args": {{"images": ["p1.png", "p2.png"], "question": "The first image is a grassland in the morning. The second image is the grassland in the afternoon. How many horses has come (or left) during this period?"}}}}]
 ---END-OF-EXAMPLE-2---
 
 ------EXAMPLE-3-------
