@@ -190,4 +190,4 @@ output/audios/*
 
 # Examples
 !.env.example
-
+!examples/*
