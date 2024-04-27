@@ -4,7 +4,15 @@ import requests
 import aiohttp
 import re
 from io import BytesIO
+from diffusers.utils import load_image
 from PIL import Image
+
+
+def image_to_bytes(img_url: str) -> bytes:
+    img_byte = BytesIO()
+    load_image(img_url).save(img_byte, format="png")
+    img_data = img_byte.getvalue()
+    return img_data
 
 
 def base64_to_image(base64_str: str, image_path=None) -> Image.Image:

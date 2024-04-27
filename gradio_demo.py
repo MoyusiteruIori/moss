@@ -6,6 +6,7 @@ from moss.task_planner import Plan
 from moss.tools.chitchat import ChitChat
 from moss.tools.image_generator import ImageGenerator
 from moss.tools.image_qa import ImageQA
+from moss.tools.object_detector import ObjectDetector
 from moss.tools.speech_transcriber import SpeechTranscriber
 from moss.tools.summarizer import Summarizer
 from moss.tools.text_reader import TextReader
@@ -29,6 +30,7 @@ def load_agent() -> Moss:
 tools = [
     ImageGenerator(),
     ImageQA(),
+    ObjectDetector(),
     TextReader(),
     SpeechTranscriber(),
     Translator(),
@@ -98,12 +100,14 @@ def format_execution_markdown(execution: TaskExecutor) -> List[str]:
     s += "The task executor has executed the tasks. Here's the results:\n\n"
     result: List[str] = [s]
     for index, task in enumerate(execution.tasks):
-        s = f"{index + 1}. **{task.task}** - **{task.status}**  "
+        s = f"**{index + 1} - {task.task} - {task.status}**  "
         if task.status != "completed":
             s += f"message: {task.message}"
-        else:
+        else:   # task completed
             if not is_file(task.result):
-                s += f"result: {task.result}"
+                task_result = task.result
+                task_result.replace("\n", "\n   ")
+                s += f"result: {task_result}"
         result.append(s)
         if is_file(task.result):
             result.append(task.result)
@@ -122,9 +126,15 @@ T = TypeVar("T")
 
 def resp_generator(text: T, formatter: Callable[[T], str]) -> Generator[str, Any, None]:
     formatted_text = formatter(text)
-    for c in formatted_text:
-        yield c
-        time.sleep(random.uniform(0, 0.03))
+    chunk_size = int(len(formatted_text) / 10) if len(formatted_text) > 10 else 1
+    idx = 0
+    while idx < len(formatted_text):
+        yield formatted_text[idx:idx + chunk_size]
+        idx += chunk_size
+        time.sleep(random.uniform(0.02, 0.05))
+    # for c in formatted_text:
+    #     yield c
+    #     time.sleep(random.uniform(0, 0.03))
 
 
 def print_like_dislike(x: gr.LikeData):
@@ -230,8 +240,8 @@ if __name__ == "__main__":
                     "files": [],
                 },
                 {
-                    "text": "Generate two images of cats, one white and the other black, and provide a comparative description for these two images.",
-                    "files": [],
+                    "text": "Here is a group of images. Please tell me the relationship between these images.",
+                    "files": ["examples/step1.png", "examples/step2.png", "examples/step3.png", "examples/step4.png", "examples/step5.png", "examples/step6.png",],
                 },
                 {
                     "text": "Listen to the speech in this audio file, summarize the content, and generate an image based on it.",
