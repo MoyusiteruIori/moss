@@ -47,6 +47,7 @@ class Task:
         elif self.task in [
             "image_generator",
             "object_detector",
+            "object_replacer",
             "image_segmenter",
             "background_eraser"
         ]:
@@ -78,6 +79,7 @@ class Task:
                 "image_generator",
                 "image_segmenter",
                 "object_detector",
+                "object_replacer",
                 "background_eraser",
                 "text_reader"
             ]:

@@ -9,6 +9,7 @@ from moss.tools.image_generator import ImageGenerator
 from moss.tools.image_qa import ImageQA
 from moss.tools.image_segmenter import ImageSegmenter
 from moss.tools.object_detector import ObjectDetector
+from moss.tools.object_replacer import ObjectReplacer
 from moss.tools.speech_transcriber import SpeechTranscriber
 from moss.tools.summarizer import Summarizer
 from moss.tools.text_reader import TextReader
@@ -35,6 +36,7 @@ tools = [
     ImageQA(),
     ImageSegmenter(),
     ObjectDetector(),
+    ObjectReplacer(),
     TextReader(),
     SpeechTranscriber(),
     Translator(),
