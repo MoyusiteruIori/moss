@@ -6,6 +6,7 @@ from moss.task_planner import Plan
 from moss.tools.chitchat import ChitChat
 from moss.tools.image_generator import ImageGenerator
 from moss.tools.image_qa import ImageQA
+from moss.tools.image_segmenter import ImageSegmenter
 from moss.tools.object_detector import ObjectDetector
 from moss.tools.speech_transcriber import SpeechTranscriber
 from moss.tools.summarizer import Summarizer
@@ -30,6 +31,7 @@ def load_agent() -> Moss:
 tools = [
     ImageGenerator(),
     ImageQA(),
+    ImageSegmenter(),
     ObjectDetector(),
     TextReader(),
     SpeechTranscriber(),

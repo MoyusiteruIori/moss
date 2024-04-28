@@ -44,7 +44,11 @@ class Task:
                 video_out.write(frame)
             video_out.release()
             self.result = video_filename
-        elif self.task in ["image_generator", "object_detector"]:
+        elif self.task in [
+            "image_generator",
+            "object_detector",
+            "image_segmenter"
+        ]:
             # PIL.Image to image
             filename = uuid.uuid4().hex[:6] + ".png"
             self.product.save(filename)  # type: ignore
@@ -68,7 +72,13 @@ class Task:
     def run(self) -> str:
         try:
             new_args = copy.deepcopy(self.args)
-            if self.task in ["video_generator", "image_generator", "object_detector", "text_reader"]:
+            if self.task in [
+                "video_generator",
+                "image_generator",
+                "image_segmenter",
+                "object_detector",
+                "text_reader"
+            ]:
                 self.product = self.tool._run(**new_args)
             else:
                 self.result = self.tool._run(**new_args)
