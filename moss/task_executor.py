@@ -47,7 +47,8 @@ class Task:
         elif self.task in [
             "image_generator",
             "object_detector",
-            "image_segmenter"
+            "image_segmenter",
+            "background_eraser"
         ]:
             # PIL.Image to image
             filename = uuid.uuid4().hex[:6] + ".png"
@@ -77,6 +78,7 @@ class Task:
                 "image_generator",
                 "image_segmenter",
                 "object_detector",
+                "background_eraser",
                 "text_reader"
             ]:
                 self.product = self.tool._run(**new_args)

@@ -3,6 +3,7 @@ from moss.moss import Moss
 from moss.log import setup_logging
 from moss.task_executor import TaskExecutor
 from moss.task_planner import Plan
+from moss.tools.background_eraser import BackgroundEraser
 from moss.tools.chitchat import ChitChat
 from moss.tools.image_generator import ImageGenerator
 from moss.tools.image_qa import ImageQA
@@ -29,6 +30,7 @@ def load_agent() -> Moss:
 
 
 tools = [
+    BackgroundEraser(),
     ImageGenerator(),
     ImageQA(),
     ImageSegmenter(),
