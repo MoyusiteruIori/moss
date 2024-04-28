@@ -238,7 +238,7 @@ class TaskPlanner(BasePlanner):
     def plan(self, inputs: dict, callbacks: Callbacks = None, **kwargs: Any) -> Plan:
         """Given input, decided what to do."""
         inputs["tools"] = [
-            f"{tool.name}: {tool.description}" for tool in inputs["hf_tools"]
+            f"{tool.name}: {tool.description}, arguments: {tool.args}" for tool in inputs["hf_tools"]
         ]
         llm_response = self.llm_chain.run(**inputs, stop=self.stop, callbacks=callbacks)
         return self.output_parser.parse(llm_response, inputs["hf_tools"])
