@@ -30,7 +30,7 @@ class ObjectDetector(BaseTool):
         draw = ImageDraw.Draw(image_obj)
         for label in predicted:
             box = label["box"]
-            draw.rectangle(((box["xmin"], box["ymin"]), (box["xmax"], box["ymax"])), outline=color_map[label["label"]], width=4)
+            draw.rectangle(((box["xmin"], box["ymin"]), (box["xmax"], box["ymax"])), outline=color_map[label["label"]], width=6)
             draw.text((box["xmin"]+5, box["ymin"]-15), label["label"], fill=color_map[label["label"]])
         return image_obj
 

@@ -1,7 +1,7 @@
 from typing import Type
 from huggingface_hub import AsyncInferenceClient, InferenceClient # type: ignore
 from langchain.tools import BaseTool
-from PIL import Image, ImageDraw
+from PIL import Image
 from pydantic.v1 import BaseModel, Field
 from ..configs import HF_TOKEN
 
