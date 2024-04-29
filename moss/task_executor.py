@@ -45,11 +45,12 @@ class Task:
             video_out.release()
             self.result = video_filename
         elif self.task in [
+            "background_eraser",
             "image_generator",
+            "image_segmenter",
             "object_detector",
             "object_replacer",
-            "image_segmenter",
-            "background_eraser"
+            "sketch_refiner"
         ]:
             # PIL.Image to image
             filename = uuid.uuid4().hex[:6] + ".png"
@@ -75,13 +76,14 @@ class Task:
         try:
             new_args = copy.deepcopy(self.args)
             if self.task in [
-                "video_generator",
+                "background_eraser",
                 "image_generator",
                 "image_segmenter",
                 "object_detector",
                 "object_replacer",
-                "background_eraser",
-                "text_reader"
+                "sketch_refiner",
+                "text_reader",
+                "video_generator"
             ]:
                 self.product = self.tool._run(**new_args)
             else:

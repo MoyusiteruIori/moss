@@ -10,6 +10,7 @@ from moss.tools.image_qa import ImageQA
 from moss.tools.image_segmenter import ImageSegmenter
 from moss.tools.object_detector import ObjectDetector
 from moss.tools.object_replacer import ObjectReplacer
+from moss.tools.sketch_refiner import SketchRefiner
 from moss.tools.speech_transcriber import SpeechTranscriber
 from moss.tools.summarizer import Summarizer
 from moss.tools.text_reader import TextReader
@@ -37,8 +38,9 @@ tools = [
     ImageSegmenter(),
     ObjectDetector(),
     ObjectReplacer(),
-    TextReader(),
+    SketchRefiner(),
     SpeechTranscriber(),
+    TextReader(),
     Translator(),
     Summarizer(),
     ChitChat(),
@@ -238,16 +240,16 @@ if __name__ == "__main__":
         examples = gr.Examples(
             [
                 {
-                    "text": "Describe these images in detail. Tell me every thing that you see.",
-                    "files": ["examples/black_cat.png", "examples/white_cat.png"],
-                },
-                {
-                    "text": "Generate an image of a knight riding a dragon, flying in the sky. Then write a poem about the image, and dub it. Finally translate the poem into Chinese.",
-                    "files": [],
+                    "text": "Help me refine this sketch to an image of a creepy wooden cathedral in the forest. Then remove the background of the image.",
+                    "files": ["examples/sketch.png"],
                 },
                 {
                     "text": "Here is a group of images. Please tell me the relationship between these images.",
                     "files": ["examples/step1.png", "examples/step2.png", "examples/step3.png", "examples/step4.png", "examples/step5.png", "examples/step6.png",],
+                },
+                {
+                    "text": "Generate an image of a knight riding a dragon, flying in the sky. Then write a poem about the image, and dub it. Finally translate the poem into Chinese.",
+                    "files": [],
                 },
                 {
                     "text": "Listen to the speech in this audio file, summarize the content, and generate an image based on it.",
