@@ -46,6 +46,7 @@ class Task:
             self.result = video_filename
         elif self.task in [
             "background_eraser",
+            "canny_detector",
             "image_generator",
             "image_segmenter",
             "image_to_image_generator",
@@ -79,6 +80,7 @@ class Task:
             new_args = copy.deepcopy(self.args)
             if self.task in [
                 "background_eraser",
+                "canny_detector",
                 "image_generator",
                 "image_segmenter",
                 "image_to_image_generator",
