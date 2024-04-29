@@ -10,7 +10,7 @@ import requests
 
 class SketchRefinerInput(BaseModel):
     sketch  : str = Field(
-        title="image",
+        title="sketch",
         description="The url of the sketch image to refine, could be a pose image, lineart or something like these"
     )
     prompt : str = Field(title="prompt", description="The prompt of generating image according to the sketch")
