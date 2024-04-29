@@ -8,6 +8,7 @@ from moss.tools.chitchat import ChitChat
 from moss.tools.image_generator import ImageGenerator
 from moss.tools.image_qa import ImageQA
 from moss.tools.image_segmenter import ImageSegmenter
+from moss.tools.image_to_image_generator import ImageToImageGenerator
 from moss.tools.object_detector import ObjectDetector
 from moss.tools.object_replacer import ObjectReplacer
 from moss.tools.pose_detector import PoseDetector
@@ -37,6 +38,7 @@ tools = [
     ImageGenerator(),
     ImageQA(),
     ImageSegmenter(),
+    ImageToImageGenerator(),
     ObjectDetector(),
     ObjectReplacer(),
     PoseDetector(),
