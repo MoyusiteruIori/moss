@@ -46,6 +46,6 @@ class SketchRefiner(BaseTool):
 
 
 
-    async def _arun(self, image: str) -> Image.Image:
+    async def _arun(self, sketch: str, prompt: str) -> Image.Image:
         """_arun is not implemented yet. Call sync run instead."""
-        return self._run(image)
+        return self._run(sketch, prompt)
