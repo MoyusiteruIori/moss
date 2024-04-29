@@ -191,3 +191,6 @@ output/audios/*
 # Examples
 !.env.example
 !examples/*
+
+# Models
+hub

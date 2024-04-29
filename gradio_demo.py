@@ -10,6 +10,7 @@ from moss.tools.image_qa import ImageQA
 from moss.tools.image_segmenter import ImageSegmenter
 from moss.tools.object_detector import ObjectDetector
 from moss.tools.object_replacer import ObjectReplacer
+from moss.tools.pose_detector import PoseDetector
 from moss.tools.sketch_refiner import SketchRefiner
 from moss.tools.speech_transcriber import SpeechTranscriber
 from moss.tools.summarizer import Summarizer
@@ -38,6 +39,7 @@ tools = [
     ImageSegmenter(),
     ObjectDetector(),
     ObjectReplacer(),
+    PoseDetector(),
     SketchRefiner(),
     SpeechTranscriber(),
     TextReader(),
@@ -139,10 +141,7 @@ def resp_generator(text: T, formatter: Callable[[T], str]) -> Generator[str, Any
     while idx < len(formatted_text):
         yield formatted_text[idx:idx + chunk_size]
         idx += chunk_size
-        time.sleep(random.uniform(0.02, 0.05))
-    # for c in formatted_text:
-    #     yield c
-    #     time.sleep(random.uniform(0, 0.03))
+        time.sleep(random.uniform(0.05, 0.08))
 
 
 def print_like_dislike(x: gr.LikeData):

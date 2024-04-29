@@ -50,6 +50,7 @@ class Task:
             "image_segmenter",
             "object_detector",
             "object_replacer",
+            "pose_detector",
             "sketch_refiner"
         ]:
             # PIL.Image to image
@@ -81,6 +82,7 @@ class Task:
                 "image_segmenter",
                 "object_detector",
                 "object_replacer",
+                "pose_detector",
                 "sketch_refiner",
                 "text_reader",
                 "video_generator"
