@@ -1,0 +1,2 @@
+First extract the depth image from this picture.
+Then use the depth image to guide the image-to-image generation of a futuristic-looking woman.

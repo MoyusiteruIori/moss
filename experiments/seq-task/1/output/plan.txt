@@ -1,0 +1,5 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. depth_detector ( {'image': 'man.png'} )
+2. image_to_image_generator ( {'source_image': '<resource-0>', 'prompt': 'a futuristic-looking woman', 'control_type': 'depth'} )
