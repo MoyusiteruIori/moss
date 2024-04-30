@@ -194,3 +194,6 @@ output/audios/*
 
 # Models
 hub
+
+# Experiments
+!experiments/**
