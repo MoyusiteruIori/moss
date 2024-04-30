@@ -47,6 +47,7 @@ class Task:
         elif self.task in [
             "background_eraser",
             "canny_detector",
+            "depth_detector",
             "image_generator",
             "image_segmenter",
             "image_to_image_generator",
@@ -81,6 +82,7 @@ class Task:
             if self.task in [
                 "background_eraser",
                 "canny_detector",
+                "depth_detector",
                 "image_generator",
                 "image_segmenter",
                 "image_to_image_generator",

@@ -5,6 +5,7 @@ from moss.task_executor import TaskExecutor
 from moss.task_planner import Plan
 from moss.tools.background_eraser import BackgroundEraser
 from moss.tools.canny_detector import CannyDetector
+from moss.tools.depth_detector import DepthDetector
 from moss.tools.chitchat import ChitChat
 from moss.tools.image_generator import ImageGenerator
 from moss.tools.image_qa import ImageQA
@@ -37,6 +38,7 @@ def load_agent() -> Moss:
 tools = [
     BackgroundEraser(),
     CannyDetector(),
+    DepthDetector(),
     ImageGenerator(),
     ImageQA(),
     ImageSegmenter(),
