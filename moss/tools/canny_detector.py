@@ -1,7 +1,7 @@
 try:
     from controlnet_aux.processor import Processor
 except:
-    raise ImportError("An additional package `controlnet_aux` is required when using PoseDetector Tool")
+    raise ImportError("An additional package `controlnet_aux` is required when using CannyDetector Tool")
 
 from typing import Type
 from langchain.tools import BaseTool
