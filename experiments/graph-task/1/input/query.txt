@@ -1,0 +1,4 @@
+Here is an image and a piece of audio.
+Extract the canny and the depth in reading.png, and listen to the content in description.mp3. 
+Use the canny image and the content of the audio to do an image-to-image generation, then use the pose image and also the content of the audio to do another image-to-image generation.
+Choose the tools you have to describe the images you generated in detail and give a summary of the answers, also translate into Chinese.

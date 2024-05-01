@@ -1,0 +1,4 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. image_generator ( {'prompt': 'Under the blue sky, a boy riding a bicycle extends his arms, not holding onto the handlebars.'} )

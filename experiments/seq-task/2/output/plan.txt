@@ -1,0 +1,6 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. image_generator ( {'prompt': 'A black dog chasing a truck'} )
+2. object_replacer ( {'image': '<resource-0>', 'original_object': 'truck', 'new_object': 'horse'} )
+3. image_qa ( {'image': '<resource-1>'} )

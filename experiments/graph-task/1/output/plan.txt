@@ -1,0 +1,16 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. canny_detector ( {'image': 'reading.png'} )
+2. depth_detector ( {'image': 'reading.png'} )
+3. speech_transcriber ( {'audio': 'description.mp3'} )
+4. image_to_image_generator ( {'source_image': '<resource-0>', 'prompt': '<resource-2>', 'control_type': 'canny'} )
+5. image_to_image_generator ( {'source_image': '<resource-1>', 'prompt': '<resource-2>', 'control_type': 'depth'} )
+6. object_detector ( {'image': '<resource-3>'} )
+7. object_detector ( {'image': '<resource-4>'} )
+8. image_segmenter ( {'image': '<resource-3>'} )
+9. image_segmenter ( {'image': '<resource-4>'} )
+10. image_qa ( {'images': ['<resource-3>', '<resource-5>', '<resource-7>'], 'question': 'Describe the image in detail based on the object detection and segmentation results'} )
+11. image_qa ( {'images': ['<resource-4>', '<resource-6>', '<resource-8>'], 'question': 'Describe the image in detail based on the object detection and segmentation results'} )
+12. summarizer ( {'text': '<resource-9> <resource-10>'} )
+13. translator ( {'text': '<resource-11>', 'source_language': 'English', 'target_language': 'Chinese'} )
