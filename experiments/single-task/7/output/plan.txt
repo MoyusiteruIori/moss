@@ -1,0 +1,4 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. object_replacer ( {'image': 'black_cat.png', 'original_object': 'black cat', 'new_object': 'cute white dog'} )

@@ -1,0 +1,4 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. pose_detector ( {'image': 'man.png'} )

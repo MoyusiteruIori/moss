@@ -1,0 +1,4 @@
+Response Generator:
+The response generator summarized the execution results, Here is the final answer:
+
+The depth in the image 'depth_est_sample.png' has been successfully estimated. The result is saved in the file named '87d127.png'.
