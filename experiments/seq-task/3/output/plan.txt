@@ -1,0 +1,6 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. image_generator ( {'prompt': 'A group of horses running on the grassland'} )
+2. object_detector ( {'image': '<resource-0>'} )
+3. image_qa ( {'images': ['<resource-1>'], 'question': 'How many horses are there in the image?'} )

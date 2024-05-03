@@ -1,0 +1,7 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. image_generator ( {'prompt': 'A knight riding a dragon, flying in the sky'} )
+2. image_qa ( {'images': ['<resource-0>'], 'question': 'Write a poem about this image'} )
+3. translator ( {'text': '<resource-1>', 'source_language': 'English', 'target_language': 'Chinese'} )
+4. text_reader ( {'text': '<resource-2>'} )

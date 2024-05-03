@@ -1,0 +1,9 @@
+Task Planner:
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. canny_detector ( {'image': 'readinggirl.png'} )
+2. pose_detector ( {'image': 'readinggirl.png'} )
+3. depth_detector ( {'image': 'readinggirl.png'} )
+4. image_to_image_generator ( {'prompt': 'a mature lady reading a book, with a cat lying on her lap', 'source_image': '<resource-0>', 'control_type': 'canny'} )
+5. image_to_image_generator ( {'prompt': 'a mature lady reading a book, with a cat lying on her lap', 'source_image': '<resource-1>', 'control_type': 'pose'} )
+6. image_to_image_generator ( {'prompt': 'a mature lady reading a book, with a cat lying on her lap', 'source_image': '<resource-2>', 'control_type': 'depth'} )

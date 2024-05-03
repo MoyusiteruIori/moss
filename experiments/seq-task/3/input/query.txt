@@ -1,0 +1,1 @@
+Generate an image of a group of horses running on the grassland. Then mark all the horses and tell me how many horses are there in the image.
