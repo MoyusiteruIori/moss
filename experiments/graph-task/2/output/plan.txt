@@ -1,0 +1,12 @@
+The request you submitted has been processed by the task planner and has been scheduled into the following tasks:
+
+1. image_qa ( {'images': ['desert.png'], 'question': 'Describe the image in one sentence.'} )
+2. image_qa ( {'images': ['ocean.png'], 'question': 'Describe the image in one sentence.'} )
+3. image_qa ( {'images': ['forest.png'], 'question': 'Describe the image in one sentence.'} )
+4. sketch_refiner ( {'sketch': 'sketch.png', 'prompt': '<resource-0>'} )
+5. sketch_refiner ( {'sketch': 'sketch.png', 'prompt': '<resource-1>'} )
+6. sketch_refiner ( {'sketch': 'sketch.png', 'prompt': '<resource-2>'} )
+7. image_qa ( {'images': ['<resource-3>', '<resource-4>', '<resource-5>'], 'question': 'Write a short piece of prose passage according to these images.'} )
+8. text_reader ( {'text': '<resource-6>'} )
+9. summarizer ( {'text': '<resource-6>'} )
+10. translator ( {'text': '<resource-8>', 'source_language': 'English', 'target_language': 'Chinese'} )
