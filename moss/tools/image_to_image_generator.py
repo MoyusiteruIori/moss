@@ -39,10 +39,10 @@ class ImageToImageGenerator(BaseTool):
             "depth": "lllyasviel/sd-controlnet-depth"
         }
         controlnet_name = model_map[control_type]
-        controlnet = ControlNetModel.from_pretrained(controlnet_name, torch_dtype=torch.float16)
+        controlnet = ControlNetModel.from_pretrained(controlnet_name, torch_dtype=torch.float16, low_cpu_mem_usage=True)
 
         pipe = StableDiffusionControlNetPipeline.from_pretrained(
-            "runwayml/stable-diffusion-v1-5", controlnet=controlnet, torch_dtype=torch.float16
+            "runwayml/stable-diffusion-v1-5", controlnet=controlnet, torch_dtype=torch.float16, low_cpu_mem_usage=True
         )
 
         # speed up diffusion process with faster scheduler and memory optimization
