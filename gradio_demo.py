@@ -260,6 +260,10 @@ if __name__ == "__main__":
                     "text": "Listen to the speech in this audio file, summarize the content, and generate an image based on it.",
                     "files": ["examples/poem.mp3"],
                 },
+                {
+                    "text": "Please generate an image with the pose in dunk.png and a one-sentence description of waving.png",
+                    "files": ["examples/dunk.png", "examples/waving.png"]
+                }
             ],
             chat_input,
         )
