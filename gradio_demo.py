@@ -224,6 +224,7 @@ if __name__ == "__main__":
             elem_id="chatbot",
             bubble_full_width=False,
             avatar_images=("assets/user_avatar.jpg", "assets/bot_avatar.png"),
+            height=500
         )
 
         chat_input = gr.MultimodalTextbox(
