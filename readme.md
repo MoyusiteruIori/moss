@@ -10,26 +10,40 @@ My graduation project based on [HuggingGPT](https://github.com/microsoft/JARVIS)
 
 ## Installation
 
-### Install with Docker
-
-TODO
-
-### Install without Docker
-
 - Clone this repository
 
 ```shell
-git clone https://github.com/MoyusiteruIori/moss.git
-cd moss
+$ git clone https://github.com/MoyusiteruIori/moss.git
+$ cd moss
+$ cp .env.example .env
 ```
 
 - Create configuration file from template
 
+Replace `OPENAI_API_KEY`, `HF_TOKEN` and `SD_TOKEN` with your own. If you don't know what these are, see [openai-api](https://openai.com/blog/openai-api), [huggingface](https://huggingface.co/) and [stability.ai](https://stability.ai/).
+
+### Install with Docker
+
+Option 1: Use docker-compose (recommended):
+
 ```shell
-cp .env.example .env
+$ docker compose up -d
+# To utilize your local GPUs for certain local inferences:
+# INFERENCEMODE=HYBRID docker compose up -d
 ```
 
-Replace `OPENAI_API_KEY`, `HF_TOKEN` and `SD_TOKEN` with your own. If you don't know what these are, see [openai-api](https://openai.com/blog/openai-api), [huggingface](https://huggingface.co/) and [stability.ai](https://stability.ai/).
+Option 2: Build a Docker image locally and manually start:
+
+```shell
+$ docker build -t moss .
+# To utilize your local GPUs for certain local inferences:
+# docker build -t --build-arg INFERENCEMODE=HYBRID moss .
+$ docker run -p 7860:7860 --name moss moss
+```
+
+### Install without Docker
+
+
 
 - Install dependencies
 
@@ -50,3 +64,5 @@ python gradio_demo.py
 ```shell
 python cli.py
 ```
+
+You can then access `localhost:7860` to use moss.
