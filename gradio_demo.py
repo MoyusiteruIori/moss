@@ -276,6 +276,10 @@ if __name__ == "__main__":
                 {
                     "text": "Please generate an image with the pose in dunk.png and a one-sentence description of waving.png",
                     "files": ["examples/dunk.png", "examples/waving.png"]
+                },
+                {
+                    "text": "Use the sketch to generate 3 different images respectively according to the descriptions of the 3 images. Then write a short piece of prose passage according to the 3 images generated in step 2 together. Finally, dub the prose passage, and summarize it, and translate the summarization into Chinese.",
+                    "files": ["examples/desert.png", "examples/ocean.png", "examples/forest.png", "examples/sketch.png"]
                 }
             ],
             chat_input,
