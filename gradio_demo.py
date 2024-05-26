@@ -30,7 +30,7 @@ setup_logging()
 
 
 def load_agent() -> Moss:
-    return Moss(llm=ChatOpenAI(temperature=0, model="gpt-4"), tools=tools)
+    return Moss(llm=ChatOpenAI(temperature=0, model="gpt-4-turbo"), tools=tools)
 
 
 tools = [

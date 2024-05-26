@@ -46,7 +46,7 @@ if __name__ == "__main__":
         ChitChat(),
     ]
 
-    agent = Moss(llm=ChatOpenAI(temperature=0, model="gpt-4"), tools=tools, verbose=False)
+    agent = Moss(llm=ChatOpenAI(temperature=0, model="gpt-4-turbo"), tools=tools, verbose=False)
 
     execution = None
     while True:
