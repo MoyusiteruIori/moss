@@ -1,19 +1,17 @@
-from typing import Any, Callable, Generator, List, Optional, Tuple, TypedDict, TypeVar
+from typing import (
+    Any, Callable, Generator, List, Optional, Tuple, TypedDict, TypeVar
+)
 from moss.moss import Moss
 from moss.log import setup_logging
 from moss.task_executor import TaskExecutor
 from moss.task_planner import Plan
 from moss.tools.background_eraser import BackgroundEraser
-from moss.tools.canny_detector import CannyDetector
-from moss.tools.depth_detector import DepthDetector
 from moss.tools.chitchat import ChitChat
 from moss.tools.image_generator import ImageGenerator
 from moss.tools.image_qa import ImageQA
 from moss.tools.image_segmenter import ImageSegmenter
-from moss.tools.image_to_image_generator import ImageToImageGenerator
 from moss.tools.object_detector import ObjectDetector
 from moss.tools.object_replacer import ObjectReplacer
-from moss.tools.pose_detector import PoseDetector
 from moss.tools.sketch_refiner import SketchRefiner
 from moss.tools.speech_transcriber import SpeechTranscriber
 from moss.tools.summarizer import Summarizer
@@ -37,15 +35,11 @@ def load_agent() -> Moss:
 
 tools = [
     BackgroundEraser(),
-    CannyDetector(),
-    DepthDetector(),
     ImageGenerator(),
     ImageQA(),
     ImageSegmenter(),
-    ImageToImageGenerator(),
     ObjectDetector(),
     ObjectReplacer(),
-    PoseDetector(),
     SketchRefiner(),
     SpeechTranscriber(),
     TextReader(),
@@ -53,6 +47,24 @@ tools = [
     Summarizer(),
     ChitChat(),
 ]
+
+try:
+    import accelerate as _
+    from moss.tools.canny_detector import CannyDetector
+    from moss.tools.depth_detector import DepthDetector
+    from moss.tools.pose_detector import PoseDetector
+    from moss.tools.image_to_image_generator import ImageToImageGenerator
+
+    tools += [
+        CannyDetector(),
+        DepthDetector(),
+        ImageToImageGenerator(),
+        PoseDetector(),
+    ]
+
+    print("Starting in hybrid inference mode...")
+except:
+    print("Starting in fully on-device inference mode...")
 
 agent = load_agent()
 
