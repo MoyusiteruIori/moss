@@ -39,7 +39,7 @@ Option 1: Use docker-compose (recommended):
 ```shell
 $ docker compose up -d
 # To utilize your local GPUs for certain local inferences:
-# INFERENCEMODE=HYBRID docker compose up -d
+# INFERENCE_MODE=HYBRID docker compose up -d
 ```
 
 Option 2: Build a Docker image locally and manually start:
@@ -47,7 +47,7 @@ Option 2: Build a Docker image locally and manually start:
 ```shell
 $ docker build -t moss .
 # To utilize your local GPUs for certain local inferences:
-# docker build -t --build-arg INFERENCEMODE=HYBRID moss .
+# docker build -t --build-arg INFERENCE_MODE=HYBRID moss .
 $ docker run -p 7860:7860 --name moss moss
 ```
 
