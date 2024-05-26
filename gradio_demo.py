@@ -64,7 +64,7 @@ try:
 
     print("Starting in hybrid inference mode...")
 except:
-    print("Starting in fully on-device inference mode...")
+    print("Starting in fully online inference mode...")
 
 agent = load_agent()
 
