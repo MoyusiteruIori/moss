@@ -47,7 +47,7 @@ Option 2: Build a Docker image locally and manually start:
 ```shell
 $ docker build -t moss .
 # To utilize your local GPUs for certain local inferences:
-# docker build -t --build-arg INFERENCE_MODE=HYBRID moss .
+# docker build --build-arg INFERENCE_MODE=HYBRID -t moss .
 $ docker run -p 7860:7860 --name moss moss
 ```
 
