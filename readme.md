@@ -32,7 +32,7 @@ $ cp .env.example .env
 
 Replace `OPENAI_API_KEY`, `HF_TOKEN` and `SD_TOKEN` with your own. If you don't know what these are, see [openai-api](https://openai.com/blog/openai-api), [huggingface](https://huggingface.co/) and [stability.ai](https://stability.ai/).
 
-### Install with Docker
+### Install with Docker (recommended)
 
 Option 1: Use docker-compose (recommended):
 
