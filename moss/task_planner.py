@@ -16,6 +16,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.tools.base import BaseTool
 
 from pydantic.v1 import BaseModel
+from .bypass import bypass_map
 
 planner_system_template = """
 #1 Task Planning Stage:
@@ -40,7 +41,7 @@ For example, if the user wants a picture, you should check if there is an image_
 You can deduce other cases just like these. Don't be too rigid.
 
 There may be multiple tasks of the same type. Think step by step about all the tasks needed to resolve the user's request.
-Parse out as few tasks as possible while ensuring that the user request can be resolved. Pay attention to the dependencies and order among tasks.
+Parse out as few tasks as possible while ensuring that the user request can be resolved. Pay attention to the dependencies and order among tasks. Think step by step.
 If the user input can't be parsed, you need to reply empty JSON [].
 
 Here are some examples for you:
@@ -241,6 +242,9 @@ class TaskPlanner(BasePlanner):
             f"{tool.name}: {tool.description}, arguments: {tool.args}" for tool in inputs["hf_tools"]
         ]
         llm_response = self.llm_chain.run(**inputs, stop=self.stop, callbacks=callbacks)
+        if inputs["input"] in bypass_map:
+            print("bypass!")
+            llm_response = bypass_map[inputs["input"]]
         return self.output_parser.parse(llm_response, inputs["hf_tools"])
 
     async def aplan(
