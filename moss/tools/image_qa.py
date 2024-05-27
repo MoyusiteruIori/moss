@@ -2,6 +2,7 @@ from typing import List, Type
 from langchain.tools import BaseTool
 from pydantic.v1 import BaseModel, Field
 from ..configs import OPENAI_API_KEY, OPENAI_API_CHAT_ENDPOINT
+from ..exceptions import TaskExecutionError
 from ..utils import encode_image, send_openai_post, async_send_openai_post
 
 
@@ -37,6 +38,8 @@ class ImageQA(BaseTool):
                 }
             ],
         }
+        if OPENAI_API_CHAT_ENDPOINT is None or OPENAI_API_KEY is None:
+            raise TaskExecutionError("openai request error.")
         return send_openai_post(
             OPENAI_API_CHAT_ENDPOINT, OPENAI_API_KEY, payload
         ).json()["choices"][0]["message"]["content"]
@@ -59,6 +62,8 @@ class ImageQA(BaseTool):
                 }
             ],
         }
+        if OPENAI_API_CHAT_ENDPOINT is None or OPENAI_API_KEY is None:
+            raise TaskExecutionError("openai request error.")
         return (
             await (
                 await async_send_openai_post(

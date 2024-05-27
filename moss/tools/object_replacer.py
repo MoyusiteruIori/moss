@@ -44,6 +44,6 @@ class ObjectReplacer(BaseTool):
 
 
 
-    async def _arun(self, image: str) -> Image.Image:
+    async def _arun(self, image: str, original_object: str, new_object: str) -> Image.Image:
         """_arun is not implemented yet. Call sync run instead."""
-        return self._run(image)
+        return self._run(image, original_object, new_object)

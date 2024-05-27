@@ -33,7 +33,7 @@ class ImageToImageGenerator(BaseTool):
 
     def _run(self, prompt: str, source_image: str, control_type: Literal["pose", "canny", "depth"]) -> Image.Image:
         """Use the tool."""
-        model_map: Dict[str, Tuple[str, str]] = {
+        model_map: Dict[str, str] = {
             "pose":  "lllyasviel/sd-controlnet-openpose",
             "canny": "lllyasviel/sd-controlnet-canny",
             "depth": "lllyasviel/sd-controlnet-depth"
@@ -56,6 +56,6 @@ class ImageToImageGenerator(BaseTool):
         else:
             raise Exception("Generation failed")
 
-    async def _arun(self, image: str) -> Image.Image:
+    async def _arun(self, prompt: str, source_image: str, control_type: Literal["pose", "canny", "depth"]) -> Image.Image:
         """_arun is not implemented yet. Call sync run instead."""
-        return self._run(image)
+        return self._run(prompt, source_image, control_type)

@@ -1,5 +1,5 @@
 try:
-    from controlnet_aux.processor import Processor
+    from controlnet_aux.processor import Processor # type: ignore
 except:
     raise ImportError("An additional package `controlnet_aux` is required when using PoseDetector Tool")
 
