@@ -29,7 +29,7 @@ class ImageQA(BaseTool):
             for image in images
         ]
         payload = {
-            "model": "gpt-4-vision-preview",
+            "model": "gpt-4o",
             "messages": [
                 {
                     "role": "user",
@@ -46,7 +46,7 @@ class ImageQA(BaseTool):
 
     async def _arun(self, image: str, question: str) -> str:
         payload = {
-            "model": "gpt-4-vision-preview",
+            "model": "gpt-4o",
             "messages": [
                 {
                     "role": "user",
