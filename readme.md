@@ -25,12 +25,15 @@ Moss presents a collaborative system comprising LLM agents serving as controller
 ```shell
 $ git clone https://github.com/MoyusiteruIori/moss.git
 $ cd moss
-$ cp .env.example .env
 ```
 
 - Create configuration file from template
 
-Replace `OPENAI_API_KEY`, `HF_TOKEN` and `SD_TOKEN` with your own. If you don't know what these are, see [openai-api](https://openai.com/blog/openai-api), [huggingface](https://huggingface.co/) and [stability.ai](https://stability.ai/).
+```shell
+$ cp .env.example .env
+```
+
+Replace `OPENAI_API_KEY`, `HF_TOKEN` and `SD_TOKEN` in `.env` file with your own keys/tokens. If you don't know what these are, see [openai-api](https://openai.com/blog/openai-api), [huggingface](https://huggingface.co/) and [stability.ai](https://stability.ai/).
 
 ### Install with Docker (recommended)
 
