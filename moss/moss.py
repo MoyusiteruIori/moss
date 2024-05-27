@@ -1,5 +1,5 @@
-from typing import Any, Generator, Sequence, Tuple
 from queue import Queue
+from typing import Any, Generator, Sequence, Tuple
 from threading import Thread
 
 from langchain.base_language import BaseLanguageModel

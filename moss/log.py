@@ -1,5 +1,7 @@
 import logging.config
+
 import tomllib
+
 
 LOGGING_CONFIG_FILE = "logging-config.toml"
 
