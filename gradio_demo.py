@@ -49,7 +49,7 @@ tools = [
 ]
 
 try:
-    import accelerate as _
+    import accelerate as _ # type: ignore
     from moss.tools.canny_detector import CannyDetector
     from moss.tools.depth_detector import DepthDetector
     from moss.tools.pose_detector import PoseDetector
