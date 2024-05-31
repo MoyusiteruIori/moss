@@ -37,6 +37,8 @@ Replace `OPENAI_API_KEY`, `HF_TOKEN` and `SD_TOKEN` in `.env` file with your own
 
 ### Install with Docker (recommended)
 
+<b>Note</b>: Only Linux systems are guaranteed good support as the host machine for this Docker image. Ubuntu 22.04 is recommended.
+
 Option 1: Use docker-compose (recommended):
 
 ```shell
@@ -56,6 +58,8 @@ $ docker run -p 7860:7860 --name moss moss
 
 ### Install without Docker
 
+Linux and macOS are supported.
+
 - Install dependencies
 
 ```shell
@@ -64,7 +68,7 @@ conda activate moss
 pip install -r requirements.txt
 ```
 
-Optional: To utilize your local GPUs for certain local inferences, you'll need some extra packages:
+Optional: To utilize your local GPUs for certain local inferences, you'll need some extra packages (Linux only) :
 
 ```shell
 pip install accelerate==0.29.3 diffusers==0.27.2 controlnet-aux==0.0.8 transformers==4.40.1
