@@ -17,6 +17,7 @@ from langchain.tools.base import BaseTool
 
 from pydantic.v1 import BaseModel
 from .bypass import bypass_map
+from .exceptions import TaskPlanningError
 
 planner_system_template = """
 #1 Task Planning Stage:
@@ -218,14 +219,18 @@ class PlanningOutputParser(BaseModel):
             The plan.
         """
         steps = []
-        for v in json.loads(text):
-            choose_tool = None
-            for tool in hf_tools:
-                if tool.name == v["task"]:
-                    choose_tool = tool
-                    break
-            if choose_tool:
-                steps.append(Step(v["task"], v["id"], v["dep"], v["args"], tool))
+        try:    
+            for v in json.loads(text):
+                choose_tool = None
+                for tool in hf_tools:
+                    if tool.name == v["task"]:
+                        choose_tool = tool
+                        break
+                if choose_tool:
+                    steps.append(Step(v["task"], v["id"], v["dep"], v["args"], tool))
+        except:
+            # print(f"task_str: {text}")
+            raise TaskPlanningError(f"Can't parse task_str: {text}")
         return Plan(steps=steps)
 
 
