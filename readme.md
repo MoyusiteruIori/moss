@@ -18,6 +18,10 @@ Moss presents a collaborative system comprising LLM agents serving as controller
 3. Task Execution: LLM invokes and executes each selected tool, subsequently delivering the results.
 4. Response Generation: Ultimately, LLM integrates the predictions made by all tools and generates appropriate responses in friendly natural language.
 
+</br>
+
+![arch](assets/usecase.drawio.png)
+
 ## Installation
 
 - Clone this repository
