@@ -92,11 +92,9 @@ You can then access `localhost:7860` to use moss.
 
 Demo video for my final presentation!
 
-<a href="http://139.9.193.25:19514/images/grad-pre.mp4">
+<a href="http://139.9.193.25:19514/images/grad-pre-jimaku.mp4">
   <img src="http://139.9.193.25:19514/images/moss-intro-cover.png" alt="sys-demo-video" width="100%"/>
 </a>
-
-[720p version](http://139.9.193.25:19514/images/grad-pre-720.mp4)
 
 ## License
 
