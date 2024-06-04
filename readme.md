@@ -84,13 +84,13 @@ pip install accelerate==0.29.3 diffusers==0.27.2 controlnet-aux==0.0.8 transform
 python gradio_demo.py
 ```
 
+You can then access `localhost:7860` to use moss.
+
 - Run command line version
 
 ```shell
 python cli.py
 ```
-
-You can then access `localhost:7860` to use moss.
 
 ## System Demo
 
